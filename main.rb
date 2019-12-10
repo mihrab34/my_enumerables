@@ -2,10 +2,11 @@
 
 # frozen_string_literal: true
 
-module Enumerable # rubocop:disable Metrics/ModuleLength
+module Enumerable
   def my_each
     return to_enum unless block_given?
-    arr = self.to_a
+
+    arr = to_a
 
     i = 0
     while i < size
@@ -16,7 +17,8 @@ module Enumerable # rubocop:disable Metrics/ModuleLength
 
   def my_each_with_index
     return to_enum unless block_given?
-    arr = self.to_a
+
+    arr = to_a
 
     i = 0
     while i < size
@@ -25,7 +27,7 @@ module Enumerable # rubocop:disable Metrics/ModuleLength
     end
   end
 
-  def my_select(&block)
+  def my_select
     return to_enum unless block_given?
 
     result = []
@@ -34,7 +36,6 @@ module Enumerable # rubocop:disable Metrics/ModuleLength
     end
     result
   end
-   # rubocop:disable  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # def my_map (&block)
   #   result = []
@@ -47,4 +48,5 @@ module Enumerable # rubocop:disable Metrics/ModuleLength
 end
 
 # (1..10).my_each_with_index{|n, i| puts n if i%2 == 0 }
-puts [1,'a', 2, 'dog', 'cat', 5, 6, 'be', 'see'].my_select{ |x| x.class==Integer}
+
+puts ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10,].my_select{ |x| &:even? })
