@@ -36,7 +36,7 @@ module Enumerable
     end
     result
   end
-#rubocop:disable  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def my_all?(arg = nil)
     if block_given?
@@ -85,14 +85,14 @@ module Enumerable
     if block_given?
       my_each { |elem| counter += 1 if yield(elem) }
     elsif arg.nil?
-      my_each { |_elem| counter += 1}
+      my_each { |_elem| counter += 1 }
     else
       my_each { |elem| counter += 1 if elem == arg }
     end
     counter
   end
 
-  def my_map (&block)
+  def my_map(&block)
     return to_enum unless block_given?
 
     result = []
@@ -102,4 +102,4 @@ module Enumerable
     result
   end
 end
-#rubocop:enable  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+# rubocop:enable  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
