@@ -31,22 +31,74 @@ module Enumerable
     return to_enum unless block_given?
 
     result = []
-    my_each do |element|
-      result << element if yield element
+    my_each do |elem|
+      result << elem if yield elem
     end
     result
   end
 
-  # def my_map (&block)
-  #   result = []
-  #   my_each do |element|
-  #     result << block.call(element)
-  #   end
-  #   result
-  # end
+  def my_all?(arg = nil)
+    if block_given?
+      my_each{|elem| return false unless yield(elem)}
+    elsif arg.class == Class
+      my_each{|elem| return false unless elem.class.ancestors.include? arg}
+    elsif arg.class == Regexp
+      my_each {|elem| return false unless elem =~ arg}
+    elsif arg.nil?
+      my_each{|elem| return false unless elem}
+    else
+      my_each{|element| return false unless elem === arg}
+    end
+  end
+
+  def my_any?(arg = nil)
+    if block_given?
+      my_each{|elem| return true if yield(elem)}
+    elsif arg.class == Class
+      my_each{|elem| return true if elem.class.ancestors.include? arg}
+    elsif arg.class == Regexp
+      my_each {|elem| return true if elem =~ arg}
+    elsif arg.nil?
+      my_each{|elem| return true if elem}
+    else
+      my_each{|element| return true if elem === arg}
+    end
+  end
+
+  def my_none?(arg = nil)
+    if block_given?
+      my_each{|elem| return false if yield(elem)}
+    elsif arg.class == Class
+      my_each{|elem| return false if elem.class.ancestors.include? arg}
+    elsif arg.class == Regexp
+      my_each {|elem| return false if elem =~ arg}
+    elsif arg.nil?
+      my_each{|elem| return false if elem}
+    else
+      my_each{|element| return false if elem === arg}
+    end
+  end
+
+  def my_count (arg = nil)
+    counter = 0
+    if block_given?
+      my_each{|elem| counter +=1 if yield(elem)}
+    elsif arg.nil?
+      my_each{|elem| counter += 1}
+    else
+      my_each{|elem| counter +=1 if elem == arg}
+    end
+    counter
+  end
+
+  def my_map (&block)
+    return to_enum unless block_given?
+
+    result = []
+    my_each do |element|
+      result << block.call(element)
+    end
+    result
+  end
 
 end
-
-# (1..10).my_each_with_index{|n, i| puts n if i%2 == 0 }
-
-puts ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10,].my_select{ |x| &:even? })
