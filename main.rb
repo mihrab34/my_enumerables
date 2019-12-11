@@ -83,11 +83,11 @@ module Enumerable # rubocop:disable Metrics/ModuleLength
   def my_count (arg = nil)
     counter = 0
     if block_given?
-      my_each { |elem| counter +=1 if yield(elem)}
+      my_each { |elem| counter += 1 if yield(elem)}
     elsif arg.nil?
       my_each { |elem| counter += 1}
     else
-      my_each { |elem| counter +=1 if elem == arg}
+      my_each { |elem| counter += 1 if elem == arg}
     end
     counter
   end
