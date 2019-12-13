@@ -65,8 +65,8 @@ module Enumerable
     end
   end
 
-  def my_none?(arg = nil &block)
-    !my_any? ( arg, &block )
+  def my_none?(arg = nil, &block)
+    !my_any?(arg, &block)
   end
 
   def my_count(arg = nil)
