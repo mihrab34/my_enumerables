@@ -36,8 +36,7 @@ module Enumerable
     end
     result
   end
-  # rubocop:disable  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-
+  
   def my_all?(arg = nil)
     if block_given?
       my_each { |elem| return false unless yield(elem) }
@@ -67,7 +66,7 @@ module Enumerable
   end
 
   def my_none?(arg = nil &block)
-    !my_any? { arg, block }
+    !my_any? ( arg, &block )
   end
 
   def my_count(arg = nil)
