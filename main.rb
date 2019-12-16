@@ -48,6 +48,7 @@ module Enumerable
     else
       my_each { |elem| return false unless elem == arg }
     end
+    true
   end
 
   def my_any?(arg = nil)
@@ -62,6 +63,7 @@ module Enumerable
     else
       my_each { |elem| return true if elem == arg }
     end
+    false
   end
 
   def my_none?(arg = nil, &block)
@@ -109,3 +111,10 @@ module Enumerable
   end
 end
 # rubocop:enable  Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+puts %w[ant bear cat].my_all? { |word| word.length >= 3 }
+puts %w[ant bear cat].my_all? { |word| word.length >= 4 }
+puts %w[ant bear cat].my_all?(/t/)
+puts [1, 2i, 3.14].my_all?(Numeric)  
+puts [nil, true, 99].my_all?
+puts [].my_all?
